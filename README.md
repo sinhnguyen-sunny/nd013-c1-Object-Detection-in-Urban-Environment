@@ -12,17 +12,11 @@ The experiments were performed on the Udacity GPU workspace in which data was do
 
 #### Dataset analysis
 
-Initial Dataset analysis was performed in the `Exploratory Data Analysis.ipynb` jupyer notebook. The dataset, which contains groundtruth bounding boxes for pedestrians, cyclists and cars, is somewhat challenging. The Driving scenarios are quite diverse: different places, weather conditions as well ifferent times of the day.
+Initial Dataset analysis was performed in the `Exploratory Data Analysis.ipynb` jupyter notebook. The dataset, which contains groundtruth bounding boxes for pedestrians, cyclists and vehicles, is somewhat challenging. The Driving scenarios are quite diverse: different places, weather conditions as well ifferent times of the day.
 
-![Dataset1](media/dataset.png 'Samples from Waymo Open Dataset')
+#### Dataset augmentation
 
-Moreover, additional data analysis show that the dataset in not well balanced as well: the classes are not well distributed with the majority of of objects in the image being vehicles, with very few cyclists!
-
-![Dataset2](media/eda1.png 'Classes distribution in Waymo Open Dataset')
-
-Object quantity in each image is also not homogeneous at all: with images from highway driving containing only up to 20 objects while crowded city scenaris can contain as well up to 70 objects.
-
-![Dataset2](media/eda2.png 'Objects in Waymo Open Dataset')
+There are 3 experiments for dataset augmentation in the `Explore augmentations.ipynb` jupyter notebook.
 
 ### Download pretrained model & Edit the config file
 
@@ -89,22 +83,21 @@ python experiments/model_main_tf2.py --model_dir=experiments/reference/ --pipeli
 ```
 
 - evaluation results:
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= all | maxDets=100 ] = 0.019
-  Average Precision (AP) @[ IoU=0.50 | area= all | maxDets=100 ] = 0.047
-  Average Precision (AP) @[ IoU=0.75 | area= all | maxDets=100 ] = 0.011
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.005
-  Average Precision (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.085
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.094
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets= 1 ] = 0.007
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets= 10 ] = 0.028
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets=100 ] = 0.056
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.020
-  Average Recall (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.202
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.250
 
-```
-
-```
+| Metric                                           | Value |
+| ------------------------------------------------ | ----- |
+| Average Precision (AP) @ IoU=0.50:0.95, all      | 0.019 |
+| Average Precision (AP) @ IoU=0.50, all           | 0.047 |
+| Average Precision (AP) @ IoU=0.75, all           | 0.011 |
+| Average Precision (AP) @ IoU=0.50:0.95, small    | 0.005 |
+| Average Precision (AP) @ IoU=0.50:0.95, medium   | 0.085 |
+| Average Precision (AP) @ IoU=0.50:0.95, large    | 0.094 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 1      | 0.007 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 10     | 0.028 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 100    | 0.056 |
+| Average Recall (AR) @ IoU=0.50:0.95, small, 100  | 0.020 |
+| Average Recall (AR) @ IoU=0.50:0.95, medium, 100 | 0.202 |
+| Average Recall (AR) @ IoU=0.50:0.95, large, 100  | 0.250 |
 
 ### Improve on the reference
 
@@ -142,18 +135,21 @@ python -m tensorboard.main --logdir experiments/<EXPERIMENT_DIR>/
   - Learning Rate: warmup + decaying 0.04
 
 - Evaluating results:
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= all | maxDets=100 ] = 0.023
-  Average Precision (AP) @[ IoU=0.50 | area= all | maxDets=100 ] = 0.051
-  Average Precision (AP) @[ IoU=0.75 | area= all | maxDets=100 ] = 0.017
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.005
-  Average Precision (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.106
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.101
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets= 1 ] = 0.008
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets= 10 ] = 0.030
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets=100 ] = 0.055
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.020
-  Average Recall (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.210
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.203
+
+| Metric                                           | Value |
+| ------------------------------------------------ | ----- |
+| Average Precision (AP) @ IoU=0.50:0.95, all      | 0.023 |
+| Average Precision (AP) @ IoU=0.50, all           | 0.051 |
+| Average Precision (AP) @ IoU=0.75, all           | 0.017 |
+| Average Precision (AP) @ IoU=0.50:0.95, small    | 0.005 |
+| Average Precision (AP) @ IoU=0.50:0.95, medium   | 0.106 |
+| Average Precision (AP) @ IoU=0.50:0.95, large    | 0.101 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 1      | 0.008 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 10     | 0.030 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 100    | 0.055 |
+| Average Recall (AR) @ IoU=0.50:0.95, small, 100  | 0.020 |
+| Average Recall (AR) @ IoU=0.50:0.95, medium, 100 | 0.210 |
+| Average Recall (AR) @ IoU=0.50:0.95, large, 100  | 0.203 |
 
 2. Experiment 2:
 
@@ -165,20 +161,22 @@ python -m tensorboard.main --logdir experiments/<EXPERIMENT_DIR>/
 
 - Evaluating results:
 
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= all | maxDets=100 ] = 0.046
-  Average Precision (AP) @[ IoU=0.50 | area= all | maxDets=100 ] = 0.098
-  Average Precision (AP) @[ IoU=0.75 | area= all | maxDets=100 ] = 0.037
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.014
-  Average Precision (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.175
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.223
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets= 1 ] = 0.012
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets= 10 ] = 0.051
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets=100 ] = 0.081
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.037
-  Average Recall (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.282
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.290
+| Metric                                           | Value |
+| ------------------------------------------------ | ----- |
+| Average Precision (AP) @ IoU=0.50:0.95, all      | 0.046 |
+| Average Precision (AP) @ IoU=0.50, all           | 0.098 |
+| Average Precision (AP) @ IoU=0.75, all           | 0.037 |
+| Average Precision (AP) @ IoU=0.50:0.95, small    | 0.014 |
+| Average Precision (AP) @ IoU=0.50:0.95, medium   | 0.175 |
+| Average Precision (AP) @ IoU=0.50:0.95, large    | 0.223 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 1      | 0.012 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 10     | 0.051 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 100    | 0.081 |
+| Average Recall (AR) @ IoU=0.50:0.95, small, 100  | 0.037 |
+| Average Recall (AR) @ IoU=0.50:0.95, medium, 100 | 0.282 |
+| Average Recall (AR) @ IoU=0.50:0.95, large, 100  | 0.290 |
 
-3. Experiment 3:
+3. Experiment 3: the worst results
 
 - Training configuration:
 
@@ -187,18 +185,21 @@ python -m tensorboard.main --logdir experiments/<EXPERIMENT_DIR>/
   - Learning Rate: decaying 0.01
 
 - Evaluating results:
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= all | maxDets=100 ] = 0.000
-  Average Precision (AP) @[ IoU=0.50 | area= all | maxDets=100 ] = 0.001
-  Average Precision (AP) @[ IoU=0.75 | area= all | maxDets=100 ] = 0.000
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
-  Average Precision (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
-  Average Precision (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.003
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets= 1 ] = 0.000
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets= 10 ] = 0.001
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= all | maxDets=100 ] = 0.006
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
-  Average Recall (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.033
-  Average Recall (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.034
+
+| Metric                                           | Value |
+| ------------------------------------------------ | ----- |
+| Average Precision (AP) @ IoU=0.50:0.95, all      | 0.000 |
+| Average Precision (AP) @ IoU=0.50, all           | 0.001 |
+| Average Precision (AP) @ IoU=0.75, all           | 0.000 |
+| Average Precision (AP) @ IoU=0.50:0.95, small    | 0.000 |
+| Average Precision (AP) @ IoU=0.50:0.95, medium   | 0.000 |
+| Average Precision (AP) @ IoU=0.50:0.95, large    | 0.003 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 1      | 0.000 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 10     | 0.001 |
+| Average Recall (AR) @ IoU=0.50:0.95, all, 100    | 0.006 |
+| Average Recall (AR) @ IoU=0.50:0.95, small, 100  | 0.000 |
+| Average Recall (AR) @ IoU=0.50:0.95, medium, 100 | 0.033 |
+| Average Recall (AR) @ IoU=0.50:0.95, large, 100  | 0.034 |
 
 ### Test Results
 
